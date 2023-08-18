@@ -110,6 +110,10 @@ body {
   /* color: #0e4d7e; */
   color: #05a699;
 }
+#public_menu,
+#public_menu i {
+  color: #e2d40c;
+}
 #question_mark__container {
   /* left: 0; */
   /* position: absolute; */
