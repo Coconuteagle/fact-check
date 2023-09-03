@@ -110,8 +110,8 @@ body {
   /* color: #0e4d7e; */
   color: #05a699;
 }
-#public_menu,
-#public_menu i {
+#finance_menu,
+#finance_menu i {
   color: #e2d40c;
 }
 #question_mark__container {
@@ -129,7 +129,7 @@ body {
   top: 5em;
   left: 0.5em;
 }
-#img_public {
+#img_finance {
   width: 7em;
   top: 5em;
   left: 0.5em;
@@ -169,7 +169,7 @@ body {
   box-shadow: 0px 0px 15px -5px #fda701 inset;
   /* box-shadow: 0 50px 100px rgb(253, 167, 1); */
 }
-.public{
+.finance{
   box-shadow: 0px 0px 15px -5px #fda701 inset;
   /* box-shadow: 0 50px 100px rgb(253, 167, 1); */
 }
