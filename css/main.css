@@ -125,29 +125,29 @@ body {
   position: absolute;
 }
 #img_pure {
-  width: 7em;
-  top: 5em;
-  left: 0.5em;
-}
-#img_public {
-  width: 7em;
-  top: 5em;
-  left: 0.5em;
+    width: 7em;
+    top: 5em;
+    left: 0.5em;
 }
 #img_conflict {
-  width: 5.8em;
-  top: 5.1em;
-  left: 6em;
+    width: 7.8em;
+    top: 5.1em;
+    left: 5.5em;
+}
+#img_public {
+    width: 7em;
+    top: 10.4em;
+    left: 6.3em;
 }
 #img_action {
-  width: 6.4em;
-  top: 11.2em;
-  left: 3.7em;
+    width: 6.4em;
+    top: 12.6em;
+    left: 3.7em;
 }
 #img_case_law {
-  width: 5.3em;
-  top: 19em;
-  left: 3.8em;
+    width: 5.3em;
+    top: 20em;
+    left: 4.4em;
 }
 #container {
   height: auto;
