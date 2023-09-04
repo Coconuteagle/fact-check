@@ -103,7 +103,7 @@ body {
 }
 #conflict_menu,
 #conflict_menu i {
-  color: #79b628;
+  color:#e2d40c;
 }
 #case_law_menu,
 #case_law_menu i {
@@ -112,7 +112,7 @@ body {
 }
 #public_menu,
 #public_menu i {
-  color: #e2d40c;
+  color: #79b628;
 }
 #question_mark__container {
   /* left: 0; */
