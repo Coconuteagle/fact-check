@@ -1,3 +1,4 @@
+// 클릭 이벤트 트리거
 $(".content_box").click(function () {
   $(this).children(".next_quest").toggle(300);
 });
@@ -29,40 +30,14 @@ function is_checked() {
   }
 }
 
-// 검색어가 있는지 확인하고, 검색어가 있으면 체크박스가 클릭된 것처럼 모든 content_box를 보이게 설정
+// 검색어가 입력되면 모든 체크박스를 클릭한 것처럼 동작하게 함
 function searcher() {
   let searchValue = document.getElementById("search").value.toLowerCase(); // 검색어를 소문자로 가져옴
-  let contentBoxes = document.getElementsByClassName("content_box"); // 모든 content_box 가져오기
 
-  // 검색어가 있는 경우 모든 항목을 보이게 설정하고 checkbox_function을 강제로 호출하여 체크박스처럼 동작
+  // 검색어가 있으면 모든 체크박스 클릭 이벤트를 강제로 트리거
   if (searchValue) {
-    for (let i = 0; i < contentBoxes.length; i++) {
-      contentBoxes[i].classList.remove("hide");
-      contentBoxes[i].style.display = "block"; // 모든 content_box를 보이게 설정
-    }
-    
-    // 검색어가 입력되면 모든 체크박스의 필터 동작을 강제 실행 (클릭된 것처럼 동작)
     $("input[type='checkbox']").each(function () {
-      checkbox_function.call(this);
-    });
-  }
-
-  // 검색어에 맞지 않는 항목은 숨기기
-  if (searchValue) {
-    for (let i = 0; i < contentBoxes.length; i++) {
-      let question = contentBoxes[i].getElementsByClassName("question")[0].innerText.toLowerCase();
-
-      // 검색어가 질문에 포함되지 않으면 해당 항목 숨기기
-      if (question.indexOf(searchValue) === -1) {
-        contentBoxes[i].style.display = "none";  // 검색어에 맞지 않는 항목 숨기기
-      }
-    }
-  }
-  
-  // 검색어가 없으면 기존 체크박스 필터가 작동하도록 함
-  if (!searchValue) {
-    $("input[type='checkbox']").each(function () {
-      checkbox_function.call(this);
+      $(this).trigger("click"); // 모든 체크박스를 클릭한 것처럼 동작
     });
   }
 }
