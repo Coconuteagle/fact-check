@@ -24,23 +24,11 @@ $(document).ready(function() {
     menu.classList.toggle("menu__checked");
   }
 
-  // Event listeners for checkboxes
-  $("input[type='checkbox']").on("click", is_checked);
-  $("input[type='checkbox']").on("click", checkbox_function);
-  $("input[type='checkbox']").on("click", searcher);
-  $("input[type='checkbox']").on("click", hideTopbar);
-
-  // Search input element
-  const $search = $("#search");
-
   // Function to perform search
   function searcher() {
-    console.log('searcher function called');
+    console.log('searcher 함수가 호출되었습니다.');
     let searchValue = $search.val().toLowerCase();
     let $contentBoxes = $(".content_box");
-
-    // Temporarily override display to show all content boxes
-    $contentBoxes.show();
 
     // Perform search filtering
     $contentBoxes.each(function() {
@@ -58,23 +46,9 @@ $(document).ready(function() {
     }
   }
 
-  // Function to hide top bar
-  function hideTopbar() {
-    $("#search-box").css({ height: "0" });
-    $(".search_box").css({ bottom: "-150px" });
-    $("#container").css({ "margin-top": "170px" });
-    $("#question_mark__container").hide(300);
-  }
-
-  // Event listeners for search input
-  $search.on("click", hideTopbar);
-  $search.on("keyup", function() {
-    searcher();
-    updateCheckboxesBasedOnSearch();
-  });
-
   // Function to update checkboxes based on search input
   function updateCheckboxesBasedOnSearch() {
+    console.log('updateCheckboxesBasedOnSearch 함수가 호출되었습니다.');
     let searchValue = $search.val().toLowerCase();
     let $checkboxes = $("input[type='checkbox']");
 
@@ -98,6 +72,30 @@ $(document).ready(function() {
       });
     }
   }
+
+  // Function to hide top bar
+  function hideTopbar() {
+    $("#search-box").css({ height: "0" });
+    $(".search_box").css({ bottom: "-150px" });
+    $("#container").css({ "margin-top": "170px" });
+    $("#question_mark__container").hide(300);
+  }
+
+  // Search input element
+  const $search = $("#search");
+
+  // Event listeners for search input
+  $search.on("click", hideTopbar);
+  $search.on("keyup", function() {
+    searcher();
+    updateCheckboxesBasedOnSearch();
+  });
+
+  // Event listeners for checkboxes
+  $("input[type='checkbox']").on("click", is_checked);
+  $("input[type='checkbox']").on("click", checkbox_function);
+  $("input[type='checkbox']").on("click", searcher);
+  $("input[type='checkbox']").on("click", hideTopbar);
 
   // Window scroll event
   $(window).scroll(function () {
