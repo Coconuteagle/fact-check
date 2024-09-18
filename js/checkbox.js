@@ -6,7 +6,7 @@ function checkbox_function() {
   const checkboxId = $(this).attr("id").split("--")[0];
   if ($(this).attr("id") === `${checkboxId}--checkbox`) {
     const toggling = $(`.${checkboxId}`);
-    for (i = 0; i < toggling.length; i++) {
+    for (let i = 0; i < toggling.length; i++) {
       if (toggling[i].classList.contains("hide")) {
         toggling[i].classList.remove("hide");
         toggling[i].style.display = "block";
@@ -29,30 +29,33 @@ function is_checked() {
   }
 }
 
+// Attach event listeners to checkboxes
 $("input[type='checkbox']").on("click", is_checked);
 $("input[type='checkbox']").on("click", checkbox_function);
 $("input[type='checkbox']").on("click", searcher);
-$("input[type='checkbox']").on("click", moveToSearchbar);
+// Commented out since moveToSearchbar is undefined
+// $("input[type='checkbox']").on("click", moveToSearchbar);
 $("input[type='checkbox']").on("click", hideTopbar);
 
 const search = document.getElementById("search");
 
 function searcher() {
-  let search = document.getElementById("search").value.toLowerCase();
+  let searchValue = document.getElementById("search").value.toLowerCase();
   let content_box = document.getElementsByClassName("content_box");
 
   for (let i = 0; i < content_box.length; i++) {
     if (!content_box[i].classList.contains("hide")) {
       let question = content_box[i].getElementsByClassName("question");
-      if (question[0].innerHTML.toLowerCase().indexOf(search) != -1) {
+      if (question[0].innerHTML.toLowerCase().indexOf(searchValue) != -1) {
         content_box[i].style.display = "block";
       } else {
         content_box[i].style.display = "none";
       }
-      if (search === "") {
-        $(".content_box").removeAttr("style");
-      }
     }
+  }
+
+  if (searchValue === "") {
+    $(".content_box").removeAttr("style");
   }
 }
 
@@ -89,13 +92,11 @@ $(window).scroll(function () {
   }
 });
 
-search.addEventListener("click", moveToSearchbar);
+// Commented out since moveToSearchbar is undefined
+// search.addEventListener("click", moveToSearchbar);
 search.addEventListener("click", hideTopbar);
-search.addEventListener("keyup", function() {
-  searcher();
-  updateCheckboxesBasedOnSearch();
-});
 
+// Ensure updateCheckboxesBasedOnSearch is defined before this event listener
 function updateCheckboxesBasedOnSearch() {
   let searchValue = document.getElementById("search").value.toLowerCase();
   let checkboxes = $("input[type='checkbox']");
@@ -120,3 +121,9 @@ function updateCheckboxesBasedOnSearch() {
     });
   }
 }
+
+// Now add the event listener for keyup
+search.addEventListener("keyup", function() {
+  searcher();
+  updateCheckboxesBasedOnSearch();
+});
