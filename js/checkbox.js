@@ -24,34 +24,13 @@ $(document).ready(function() {
     menu.classList.toggle("menu__checked");
   }
 
-  // Event listeners for checkboxes
-  $("input[type='checkbox']").on("click", is_checked);
-  $("input[type='checkbox']").on("click", checkbox_function);
-  // $("input[type='checkbox']").on("click", hideTopbar); // 제거됨
+  // Event listeners for checkboxes using 'change' event
+  $("input[type='checkbox']").on("change", is_checked);
+  $("input[type='checkbox']").on("change", checkbox_function);
+  // Removed hideTopbar from checkbox events
 
   // Search input element
   const $search = $("#search");
-
-  // Function to perform search
-  function searcher() {
-    let searchValue = $search.val().toLowerCase();
-    let $contentBoxes = $(".content_box");
-
-    // Perform search filtering
-    $contentBoxes.each(function() {
-      let questionText = $(this).find(".question").text().toLowerCase();
-      if (questionText.indexOf(searchValue) !== -1) {
-        $(this).show();
-      } else {
-        $(this).hide();
-      }
-    });
-
-    // Reset styles if search input is empty
-    if (searchValue === "") {
-      $contentBoxes.removeAttr("style");
-    }
-  }
 
   // Function to hide top bar
   function hideTopbar() {
@@ -66,22 +45,22 @@ $(document).ready(function() {
     let searchValue = $search.val().toLowerCase();
     let $checkboxes = $("input[type='checkbox']");
 
+    console.log("updateCheckboxesBasedOnSearch called with:", searchValue);
+
     if (searchValue !== "") {
       // Check all checkboxes if not already checked
       $checkboxes.each(function() {
         if (!$(this).prop('checked')) {
-          $(this).prop('checked', true);
-          is_checked.call(this);
-          checkbox_function.call(this);
+          console.log("Checking checkbox:", $(this).attr('id'));
+          $(this).prop('checked', true).trigger('change');
         }
       });
     } else {
       // Uncheck all checkboxes if checked
       $checkboxes.each(function() {
         if ($(this).prop('checked')) {
-          $(this).prop('checked', false);
-          is_checked.call(this);
-          checkbox_function.call(this);
+          console.log("Unchecking checkbox:", $(this).attr('id'));
+          $(this).prop('checked', false).trigger('change');
         }
       });
     }
@@ -90,7 +69,6 @@ $(document).ready(function() {
   // Event listeners for search input
   $search.on("click", hideTopbar);
   $search.on("keyup", function() {
-    searcher();
     updateCheckboxesBasedOnSearch();
   });
 
