@@ -6,13 +6,13 @@ function checkbox_function() {
   const checkboxId = $(this).attr("id").split("--")[0];
   if ($(this).attr("id") === `${checkboxId}--checkbox`) {
     const toggling = $(`.${checkboxId}`);
-    for (i = 0; i < toggling.length; i++) {
+    for (let i = 0; i < toggling.length; i++) {
       if (toggling[i].classList.contains("hide")) {
         toggling[i].classList.remove("hide");
-        toggling[i].style.display = "block";
+        toggling[i].style.display = "block"; // 해당 카테고리 보이기
       } else {
         toggling[i].classList.add("hide");
-        toggling[i].style.display = "none";
+        toggling[i].style.display = "none"; // 해당 카테고리 숨기기
       }
     }
   }
@@ -29,6 +29,7 @@ function is_checked() {
   }
 }
 
+// 체크박스 클릭 시 각 기능 연결
 $("input[type='checkbox']").on("click", is_checked);
 $("input[type='checkbox']").on("click", checkbox_function);
 $("input[type='checkbox']").on("click", searcher);
