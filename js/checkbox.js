@@ -1,7 +1,9 @@
+// 체크박스 클릭 시 .next_quest 보이기/숨기기
 $(".content_box").click(function () {
   $(this).children(".next_quest").toggle(300);
 });
 
+// 체크박스 필터링 기능
 function checkbox_function() {
   const checkboxId = $(this).attr("id").split("--")[0];
   if ($(this).attr("id") === `${checkboxId}--checkbox`) {
@@ -18,6 +20,7 @@ function checkbox_function() {
   }
 }
 
+// 체크박스 체크 상태에 따라 아이콘 표시
 function is_checked() {
   const iCheck = $(this).parent().children("i");
   iCheck.toggle(500);
@@ -29,9 +32,41 @@ function is_checked() {
   }
 }
 
+// 검색어 입력 시 체크박스 필터도 적용되도록 확장한 searcher 함수
+function searcher() {
+  let searchValue = document.getElementById("search").value.toLowerCase(); // 검색어를 소문자로 가져옴
+  let contentBoxes = document.getElementsByClassName("content_box"); // 모든 content_box 가져오기
+
+  // 검색어 입력 시 모든 content_box에서 hide 제거하고 보이도록 설정
+  for (let i = 0; i < contentBoxes.length; i++) {
+    contentBoxes[i].classList.remove("hide");
+    contentBoxes[i].style.display = "block"; // 모든 content_box를 보이게 설정
+  }
+
+  // 검색어가 입력된 경우, 검색어에 맞지 않는 항목을 숨기기
+  if (searchValue) {
+    for (let i = 0; i < contentBoxes.length; i++) {
+      let question = contentBoxes[i].getElementsByClassName("question")[0].innerText.toLowerCase();
+
+      // 검색어가 질문에 포함되지 않으면 해당 항목 숨기기
+      if (question.indexOf(searchValue) === -1) {
+        contentBoxes[i].style.display = "none";  // 검색어에 맞지 않는 항목 숨기기
+      }
+    }
+  }
+
+  // 체크박스 필터링도 함께 적용되도록
+  $("input[type='checkbox']").each(function () {
+    checkbox_function.call(this);
+  });
+}
+
 // 체크박스 클릭 시 각 기능 연결
 $("input[type='checkbox']").on("click", is_checked);
 $("input[type='checkbox']").on("click", checkbox_function);
 $("input[type='checkbox']").on("click", searcher);
 $("input[type='checkbox']").on("click", moveToSearchbar);
 $("input[type='checkbox']").on("click", hideTopbar);
+
+// 검색창에서 입력이 일어날 때마다 searcher 함수 실행
+document.getElementById("search").addEventListener("keyup", searcher);
