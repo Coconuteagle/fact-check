@@ -24,9 +24,16 @@ $(document).ready(function() {
     menu.classList.toggle("menu__checked");
   }
 
+  // Event listeners for checkboxes
+  $("input[type='checkbox']").on("click", is_checked);
+  $("input[type='checkbox']").on("click", checkbox_function);
+  $("input[type='checkbox']").on("click", hideTopbar);
+
+  // Search input element
+  const $search = $("#search");
+
   // Function to perform search
   function searcher() {
-    console.log('searcher 함수가 호출되었습니다.');
     let searchValue = $search.val().toLowerCase();
     let $contentBoxes = $(".content_box");
 
@@ -46,33 +53,6 @@ $(document).ready(function() {
     }
   }
 
-  // Function to update checkboxes based on search input
-  function updateCheckboxesBasedOnSearch() {
-    console.log('updateCheckboxesBasedOnSearch 함수가 호출되었습니다.');
-    let searchValue = $search.val().toLowerCase();
-    let $checkboxes = $("input[type='checkbox']");
-
-    if (searchValue !== "") {
-      // Check all checkboxes and update UI
-      $checkboxes.each(function() {
-        if (!$(this).prop('checked')) {
-          $(this).prop('checked', true);
-          is_checked.call(this);
-          checkbox_function.call(this);
-        }
-      });
-    } else {
-      // Uncheck all checkboxes and revert UI
-      $checkboxes.each(function() {
-        if ($(this).prop('checked')) {
-          $(this).prop('checked', false);
-          is_checked.call(this);
-          checkbox_function.call(this);
-        }
-      });
-    }
-  }
-
   // Function to hide top bar
   function hideTopbar() {
     $("#search-box").css({ height: "0" });
@@ -81,21 +61,31 @@ $(document).ready(function() {
     $("#question_mark__container").hide(300);
   }
 
-  // Search input element
-  const $search = $("#search");
-
   // Event listeners for search input
   $search.on("click", hideTopbar);
+
   $search.on("keyup", function() {
     searcher();
-    updateCheckboxesBasedOnSearch();
-  });
 
-  // Event listeners for checkboxes
-  $("input[type='checkbox']").on("click", is_checked);
-  $("input[type='checkbox']").on("click", checkbox_function);
-  $("input[type='checkbox']").on("click", searcher);
-  $("input[type='checkbox']").on("click", hideTopbar);
+    let searchValue = $search.val().toLowerCase();
+    let $checkboxes = $("input[type='checkbox']");
+
+    if (searchValue !== "") {
+      // Check all checkboxes if not already checked
+      $checkboxes.each(function() {
+        if (!$(this).prop('checked')) {
+          $(this).click(); // 프로그래밍적으로 클릭 이벤트 트리거
+        }
+      });
+    } else {
+      // Uncheck all checkboxes if checked
+      $checkboxes.each(function() {
+        if ($(this).prop('checked')) {
+          $(this).click(); // 프로그래밍적으로 클릭 이벤트 트리거
+        }
+      });
+    }
+  });
 
   // Window scroll event
   $(window).scroll(function () {
