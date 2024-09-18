@@ -1,65 +1,35 @@
 const search = document.getElementById("search");
 
-// 검색 입력할 시 다른 페이지 넘어가도 기존 검색어 유지
+// 검색 입력 시 모든 content_box에서 hide 제거하고, 검색어에 따라 필터링
 function searcher() {
-  let search = document.getElementById("search").value.toLowerCase();
-  let content_box = document.getElementsByClassName("content_box");
+  let searchValue = document.getElementById("search").value.toLowerCase();
+  let contentBoxes = document.getElementsByClassName("content_box");
 
-  // 검색 시작 시 모든 content_box에서 hide 제거
-  for (let i = 0; i < content_box.length; i++) {
-    content_box[i].classList.remove("hide");
-    content_box[i].style.display = "block"; // 모든 content_box를 보이게 설정
+  // 검색어 입력 시 모든 content_box에서 hide 제거
+  for (let i = 0; i < contentBoxes.length; i++) {
+    contentBoxes[i].classList.remove("hide");
+    contentBoxes[i].style.display = "block"; // 모든 content_box를 보이게 설정
   }
 
-  // 검색어에 맞지 않는 항목을 숨기고, 맞는 항목은 보이게 처리
-  for (let i = 0; i < content_box.length; i++) {
-    let question = content_box[i].getElementsByClassName("question")[0].innerHTML.toLowerCase();
-    if (question.indexOf(search) === -1) {
-      content_box[i].style.display = "none"; // 검색어에 맞지 않는 항목 숨기기
+  // 검색어가 입력된 경우, 검색어에 맞지 않는 항목 숨기기
+  if (searchValue) {
+    for (let i = 0; i < contentBoxes.length; i++) {
+      let question = contentBoxes[i].getElementsByClassName("question")[0].innerText.toLowerCase();
+
+      // 검색어가 질문에 포함되어 있지 않으면 해당 항목 숨기기
+      if (question.indexOf(searchValue) === -1) {
+        contentBoxes[i].style.display = "none";  // 검색어에 맞지 않는 항목 숨기기
+      }
     }
   }
 
-  // 검색어가 없을 경우 모든 content_box를 다시 보이게 설정
-  if (search === "") {
-    for (let i = 0; i < content_box.length; i++) {
-      content_box[i].style.display = "block";
+  // 검색어가 없을 경우 모든 content_box 다시 보이게 설정
+  if (searchValue === "") {
+    for (let i = 0; i < contentBoxes.length; i++) {
+      contentBoxes[i].style.display = "block";
     }
   }
 }
 
-function hideTopbar() {
-  $("#search-box").css({ height: "0" });
-  $(".search_box").css({ bottom: "-150px" });
-  $("#container").css({ "margin-top": "170px" });
-  $("#question_mark__container").hide(300);
-}
-
-$(window).scroll(function () {
-  let scrollTop = $(window).scrollTop();
-  const searchBoxHeight = $("#search-box").prop("style").height;
-  if (searchBoxHeight) {
-    if (scrollTop > 0) {
-      $("#search").css({ position: "fixed", top: "10px", bottom: "auto" });
-      $(".menu_list").css({ position: "fixed", top: "80px" });
-      $("#empty_box").show();
-    } else {
-      $("#search").removeAttr("style");
-      $(".menu_list").removeAttr("style");
-      $("#empty_box").hide();
-    }
-  } else {
-    if (scrollTop > 400) {
-      $("#search").css({ position: "fixed", top: "10px", bottom: "auto" });
-      $(".menu_list").css({ position: "fixed", top: "80px" });
-      $("#empty_box").show();
-    } else {
-      $("#search").removeAttr("style");
-      $(".menu_list").removeAttr("style");
-      $("#empty_box").hide();
-    }
-  }
-});
-
-search.addEventListener("click", moveToSearchbar);
-search.addEventListener("click", hideTopbar);
+// 이벤트 리스너 추가
 search.addEventListener("keyup", searcher);
