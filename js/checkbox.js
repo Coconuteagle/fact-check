@@ -29,17 +29,22 @@ function is_checked() {
   }
 }
 
-// 검색어가 있는지 확인하고, 검색어가 있으면 모든 content_box를 보이게 설정
+// 검색어가 있는지 확인하고, 검색어가 있으면 체크박스가 클릭된 것처럼 모든 content_box를 보이게 설정
 function searcher() {
   let searchValue = document.getElementById("search").value.toLowerCase(); // 검색어를 소문자로 가져옴
   let contentBoxes = document.getElementsByClassName("content_box"); // 모든 content_box 가져오기
 
-  // 검색어가 있는 경우 모든 항목 보이게 설정
+  // 검색어가 있는 경우 모든 항목을 보이게 설정하고 checkbox_function을 강제로 호출하여 체크박스처럼 동작
   if (searchValue) {
     for (let i = 0; i < contentBoxes.length; i++) {
       contentBoxes[i].classList.remove("hide");
       contentBoxes[i].style.display = "block"; // 모든 content_box를 보이게 설정
     }
+    
+    // 검색어가 입력되면 모든 체크박스의 필터 동작을 강제 실행 (클릭된 것처럼 동작)
+    $("input[type='checkbox']").each(function () {
+      checkbox_function.call(this);
+    });
   }
 
   // 검색어에 맞지 않는 항목은 숨기기
