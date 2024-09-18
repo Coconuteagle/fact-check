@@ -27,7 +27,7 @@ $(document).ready(function() {
   // Event listeners for checkboxes
   $("input[type='checkbox']").on("click", is_checked);
   $("input[type='checkbox']").on("click", checkbox_function);
-  $("input[type='checkbox']").on("click", hideTopbar);
+  // $("input[type='checkbox']").on("click", hideTopbar); // 제거됨
 
   // Search input element
   const $search = $("#search");
@@ -61,12 +61,8 @@ $(document).ready(function() {
     $("#question_mark__container").hide(300);
   }
 
-  // Event listeners for search input
-  $search.on("click", hideTopbar);
-
-  $search.on("keyup", function() {
-    searcher();
-
+  // Function to update checkboxes based on search input
+  function updateCheckboxesBasedOnSearch() {
     let searchValue = $search.val().toLowerCase();
     let $checkboxes = $("input[type='checkbox']");
 
@@ -74,17 +70,28 @@ $(document).ready(function() {
       // Check all checkboxes if not already checked
       $checkboxes.each(function() {
         if (!$(this).prop('checked')) {
-          $(this).click(); // 프로그래밍적으로 클릭 이벤트 트리거
+          $(this).prop('checked', true);
+          is_checked.call(this);
+          checkbox_function.call(this);
         }
       });
     } else {
       // Uncheck all checkboxes if checked
       $checkboxes.each(function() {
         if ($(this).prop('checked')) {
-          $(this).click(); // 프로그래밍적으로 클릭 이벤트 트리거
+          $(this).prop('checked', false);
+          is_checked.call(this);
+          checkbox_function.call(this);
         }
       });
     }
+  }
+
+  // Event listeners for search input
+  $search.on("click", hideTopbar);
+  $search.on("keyup", function() {
+    searcher();
+    updateCheckboxesBasedOnSearch();
   });
 
   // Window scroll event
