@@ -31,31 +31,30 @@ $(document).ready(function() {
   $("input[type='checkbox']").on("click", hideTopbar);
 
   // Search input element
-  const search = document.getElementById("search");
+  const $search = $("#search");
 
   // Function to perform search
   function searcher() {
-    let searchValue = search.value.toLowerCase();
-    let contentBoxes = document.getElementsByClassName("content_box");
+    console.log('searcher function called');
+    let searchValue = $search.val().toLowerCase();
+    let $contentBoxes = $(".content_box");
 
     // Temporarily override display to show all content boxes
-    for (let i = 0; i < contentBoxes.length; i++) {
-      contentBoxes[i].style.display = "block";
-    }
+    $contentBoxes.show();
 
     // Perform search filtering
-    for (let i = 0; i < contentBoxes.length; i++) {
-      let question = contentBoxes[i].getElementsByClassName("question")[0];
-      if (question.innerHTML.toLowerCase().indexOf(searchValue) !== -1) {
-        contentBoxes[i].style.display = "block";
+    $contentBoxes.each(function() {
+      let questionText = $(this).find(".question").text().toLowerCase();
+      if (questionText.indexOf(searchValue) !== -1) {
+        $(this).show();
       } else {
-        contentBoxes[i].style.display = "none";
+        $(this).hide();
       }
-    }
+    });
 
     // Reset styles if search input is empty
     if (searchValue === "") {
-      $(".content_box").removeAttr("style");
+      $contentBoxes.removeAttr("style");
     }
   }
 
@@ -68,8 +67,37 @@ $(document).ready(function() {
   }
 
   // Event listeners for search input
-  search.addEventListener("click", hideTopbar);
-  search.addEventListener("keyup", searcher);
+  $search.on("click", hideTopbar);
+  $search.on("keyup", function() {
+    searcher();
+    updateCheckboxesBasedOnSearch();
+  });
+
+  // Function to update checkboxes based on search input
+  function updateCheckboxesBasedOnSearch() {
+    let searchValue = $search.val().toLowerCase();
+    let $checkboxes = $("input[type='checkbox']");
+
+    if (searchValue !== "") {
+      // Check all checkboxes and update UI
+      $checkboxes.each(function() {
+        if (!$(this).prop('checked')) {
+          $(this).prop('checked', true);
+          is_checked.call(this);
+          checkbox_function.call(this);
+        }
+      });
+    } else {
+      // Uncheck all checkboxes and revert UI
+      $checkboxes.each(function() {
+        if ($(this).prop('checked')) {
+          $(this).prop('checked', false);
+          is_checked.call(this);
+          checkbox_function.call(this);
+        }
+      });
+    }
+  }
 
   // Window scroll event
   $(window).scroll(function () {
@@ -77,21 +105,21 @@ $(document).ready(function() {
     const searchBoxHeight = $("#search-box").prop("style").height;
     if (searchBoxHeight) {
       if (scrollTop > 0) {
-        $("#search").css({ position: "fixed", top: "10px", bottom: "auto" });
+        $search.css({ position: "fixed", top: "10px", bottom: "auto" });
         $(".menu_list").css({ position: "fixed", top: "80px" });
         $("#empty_box").show();
       } else {
-        $("#search").removeAttr("style");
+        $search.removeAttr("style");
         $(".menu_list").removeAttr("style");
         $("#empty_box").hide();
       }
     } else {
       if (scrollTop > 400) {
-        $("#search").css({ position: "fixed", top: "10px", bottom: "auto" });
+        $search.css({ position: "fixed", top: "10px", bottom: "auto" });
         $(".menu_list").css({ position: "fixed", top: "80px" });
         $("#empty_box").show();
       } else {
-        $("#search").removeAttr("style");
+        $search.removeAttr("style");
         $(".menu_list").removeAttr("style");
         $("#empty_box").hide();
       }
