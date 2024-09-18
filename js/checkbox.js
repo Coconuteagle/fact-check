@@ -40,9 +40,8 @@ $(document).ready(function() {
     let searchValue = search.value.toLowerCase();
     let contentBoxes = document.getElementsByClassName("content_box");
 
-    // Simulate all items being clicked by removing 'hide' class
+    // Temporarily override display to show all content boxes
     for (let i = 0; i < contentBoxes.length; i++) {
-      contentBoxes[i].classList.remove("hide");
       contentBoxes[i].style.display = "block";
     }
 
