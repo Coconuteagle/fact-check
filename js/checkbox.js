@@ -1,7 +1,6 @@
 $(".content_box").click(function () {
   $(this).children(".next_quest").toggle(300);
 });
-
 function checkbox_function() {
   const checkboxId = $(this).attr("id").split("--")[0];
   if ($(this).attr("id") === `${checkboxId}--checkbox`) {
