@@ -8,7 +8,7 @@
         <link rel="manifest" href="manifest.json" />
         <meta name="theme-color" content="#0a50a0" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
-        <link rel="apple-touch-icon" href="/img/logo193.png" />
+        <link rel="apple-touch-icon" href="/img/logo192.png" />
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximun-scale=1.0, user-scalabel=no"
@@ -40,7 +40,7 @@
                     <img src="img/conflict2.png" id="img_conflict" alt="" />
                 </label>
                 <label for="public--checkbox">
-                    <img src="img/public2.png" id="img_public" alt="" />
+                    <img src="img/public.png" id="img_public" alt="" />
                 </label>
                 <label for="action--checkbox">
                     <img src="img/action2.png" id="img_action" alt="" />
@@ -96,7 +96,8 @@
     2. 청탁금지법(청렴): pure
     3. 이해충돌: conflict -->
         <div id="container">
-            <div class="content_box hide public">
+
+<div class="content_box hide public">
   <div class="question"> 사립학교와 사립학교법인은 청탁금지법 상 공공기관에 해당하는데, 공공
 재정환수법에서도 공공기관으로 보나요?</div>
   <div class="next_quest">
@@ -29580,30 +29581,32 @@ A공공기관이 기업에 직접 지원금을 지급하는 것이 아니라 협
         </div>
       </div>
       <br/>
-        <div id="splash-screen">
-            <img src="img/ss.png" alt="" />
-        </div>
 
-        <i class="fa-solid fa-circle-arrow-up fa-3x to-top-btn"></i>
-        <!--  fontawesome  -->
-        <script
-            src="https://kit.fontawesome.com/493cc16663.js"
-            crossorigin="anonymous"
-        ></script>
+      
+      <div id="splash-screen">
+        <img src="img/ss.png" alt="" />
+    </div>
 
-        <script src="js/totopbutton.js"></script>
-        <script src="js/search.js"></script>
-        <script src="js/checkbox.js"></script>
-        <script src="js/disppearsymbol.js"></script>
-        <!-- 1. 서비스 워커 등록 -->
-        <script>
-            if ("serviceWorker" in navigator) {
-                navigator.serviceWorker
-                    .register("./service_worker.js")
-                    .then(function () {
-                        console.log("서비스 워커가 등록됨!");
-                    });
-            }
-        </script>
-    </body>
+    <i class="fa-solid fa-circle-arrow-up fa-3x to-top-btn"></i>
+    <!--  fontawesome  -->
+    <script
+        src="https://kit.fontawesome.com/493cc16663.js"
+        crossorigin="anonymous"
+    ></script>
+
+    <script src="js/totopbutton.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/checkbox.js"></script>
+    <script src="js/disppearsymbol.js"></script>
+    <!-- 1. 서비스 워커 등록 -->
+    <script>
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker
+                .register("./service_worker.js")
+                .then(function () {
+                    console.log("서비스 워커가 등록됨!");
+                });
+        }
+    </script>
+</body>
 </html>
